@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+    <!-- Points to the src folder where your Java code is -->
+    <classpathentry kind="src" path="src"/>
+
+    <!-- Points to the MySQL JDBC jar file in the lib folder -->
+    <classpathentry kind="lib" path="lib/mysql-connector-j-9.0.0.jar"/>
+
+    <!-- Defines where the compiled Java class files should be placed (the bin folder) -->
+    <classpathentry kind="output" path="bin"/>
+</classpath>
