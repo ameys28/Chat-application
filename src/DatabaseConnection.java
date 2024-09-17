@@ -1,16 +1,16 @@
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 public class DatabaseConnection {
 	public DatabaseConnection(){
 		try{
-			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-			String url = "jdbc:mysql://localhost:3306/chat_app";
-			Connection con = DriverManager.getConnection(url,"root" , "abc123");
-	
-			if(con!=null) {
-				System.out.println("Connection successfull");
-			}
+			DriverManager.registerDriver(new org.postgresql.Driver());
+			String url = "jdbc:postgresql://autorack.proxy.rlwy.net:23360/railway";
+			Connection con = DriverManager.getConnection(url, "postgres" , "udmsKaiKcsPRosdfEoXMcOtQxefunszk");
+			System.out.println("Server Established");
 		} catch(SQLException e) {
-			System.out.println("issues " + e);
-		} 
-	}
+			System.out.println("isues " + e);
+		}
+	}    
 }
