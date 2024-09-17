@@ -1,7 +1,9 @@
 import java.sql.*;
 public class ChatApp {
     public static void main(String[] args) {
+	new LoginUI();
         DatabaseConnection db = new DatabaseConnection();
-        ChatUI cui = new ChatUI();
+	Connection con = db.getConnection();
+        new ChatUI(con);
     }
 }
