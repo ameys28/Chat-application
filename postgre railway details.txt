@@ -24,3 +24,6 @@ postgresUser : postgres
 
 
 /////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+postgre login cmd
+psql postgresql://postgres:udmsKaiKcsPRosdfEoXMcOtQxefunszk@autorack.proxy.rlwy.net:23360/railway

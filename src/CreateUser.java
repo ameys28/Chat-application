@@ -8,7 +8,7 @@ class app extends JFrame{
 	private JTextField txtUsername;
 	private JPasswordField txtPassword, txtConfirmPassword;
 	private JButton btnRegister;
-	private JLabel labUsername, labPassword,labConfirmPassword;
+	private JLabel labUsername, labPassword,labConfirmPassword,labDetail;
 
 	//private DatabaseConnection db;
 	
@@ -25,6 +25,7 @@ class app extends JFrame{
 		labUsername = new JLabel("Enter Username:" , JLabel.LEFT);
 		labPassword = new JLabel("Enter Password:" , JLabel.LEFT);
 		labConfirmPassword = new JLabel("Confirm Password:" , JLabel.LEFT);
+		labDetail = new JLabel("Please Fill your details" , JLabel.CENTER);
 		
 		
 		//Formating Text 
@@ -35,17 +36,36 @@ class app extends JFrame{
 		labUsername.setFont(f);
 		labPassword.setFont(f);
 		labConfirmPassword.setFont(f);
-		
+		labDetail.setFont(new Font("Arial" , Font.BOLD , 25));		
+
 		//Defining layout
-		labUsername.setBounds(90,70,200,40);
-		txtUsername.setBounds(300,70,200,40);
-		labPassword.setBounds(90,120,200,40);
-		txtPassword.setBounds(300,120,200,40);
-		labConfirmPassword.setBounds(90,170,200,40);
-		txtConfirmPassword.setBounds(300,170,200,40);
+		labDetail.setBounds(90,30,400,40);
+		labUsername.setBounds(90,100,200,40);
+		txtUsername.setBounds(300,100,200,40);
+		labPassword.setBounds(90,150,200,40);
+		txtPassword.setBounds(300,150,200,40);
+		labConfirmPassword.setBounds(90,200,200,40);
+		txtConfirmPassword.setBounds(300,200,200,40);
 		btnRegister.setBounds(230,265,130,40);	
 	
+		//Adding Action Listener to Register Button
+		ActionListener a = (ae) -> {
+			String username = txtUsername.getText();
+			String password = new String(txtPassword.getPassword());
+			String confirmPassword = new String(txtConfirmPassword.getPassword());
+			
+			if(username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+				JOptionPane.showMessageDialog(c, "All Fields must be Filled!");
+			} else if(!password.equals(confirmPassword)) {
+				JOptionPane.showMessageDialog(c, "Passwords do not match!");
+			} else {
+
+			}
+			
+		};
+		btnRegister.addActionListener(a);
 		//Adding into ContentPane
+		c.add(labDetail);
 		c.add(labUsername);
 		c.add(txtUsername);
 		c.add(labPassword);
