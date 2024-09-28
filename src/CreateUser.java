@@ -1,18 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-//import java.sql.*;
+import java.sql.*;
 
-class app extends JFrame{
+class CreateUser extends JFrame{
 	private Container c;
 	private JTextField txtUsername;
 	private JPasswordField txtPassword, txtConfirmPassword;
 	private JButton btnRegister;
 	private JLabel labUsername, labPassword,labConfirmPassword,labDetail;
 
-	//private DatabaseConnection db;
+	private DatabaseConnection db;
 	
-	public app(){
+	public CreateUser(DatabaseConnection db){
+		this.db = db;
 		//Getting the Access of the Content Pane in a Variable
 		c= getContentPane();
 		c.setLayout(null);
@@ -59,11 +60,17 @@ class app extends JFrame{
 			} else if(!password.equals(confirmPassword)) {
 				JOptionPane.showMessageDialog(c, "Passwords do not match!");
 			} else {
-
+				if(createUser(username,password)){
+					JOptionPane.showMessageDialog(c,"User Registered Successfully!");
+					dispose();
+					new LoginUI(db);
+				} else {
+					JOptionPane.showMessageDialog(c,"User Already Exists. Try a different one.");
+				}
 			}
-			
 		};
 		btnRegister.addActionListener(a);
+
 		//Adding into ContentPane
 		c.add(labDetail);
 		c.add(labUsername);
@@ -80,10 +87,31 @@ class app extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		setVisible(true);
 	}	
+	
+	private boolean createUser(String username , String password){
+		String queryCheck = "SELECT * FROM users WHERE username = ?";
+		String queryInsert = "INSERT INTO users (username ,password) VALUES(?,?)";
+		
+		try{
+			Connection con = db.getConnection();
+			PreparedStatement checkStmt = con.prepareStatement(queryCheck);
+			PreparedStatement insertStmt = con.prepareStatement(queryInsert);
+			
+			checkStmt.setString(1,username);
+			ResultSet rs = checkStmt.executeQuery();
+			if(rs.next()){
+				return false; 		//username already exists
+			}
 
-}
-class CreateUser{
-	public static void main(String args[]){
-		app a = new app();
+			insertStmt.setString(1,username);
+			insertStmt.setString(2,password);
+			insertStmt.executeUpdate();
+			return true;
+	
+		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(c,"Error Creating User : " + e.getMessage());
+			return false;
+		}
 	}
+
 }
